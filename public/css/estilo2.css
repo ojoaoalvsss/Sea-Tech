@@ -1,0 +1,181 @@
+/* Regras gerais de estilo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-image: url(__pycache__/teste.jpg);
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: fixed;
+  background-color: white;
+  padding: 15px 30px;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 40px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+}
+
+.btn-conta {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #610585;
+  border: 2px solid #610585;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-conta:hover {
+  background-color: #610585;
+  color: white;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 150px;
+}
+
+.promo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 150px;
+  margin-left: 100px;
+}
+
+.promo-text h1 {
+  font-size: 36px;
+  color: rgb(255, 255, 255);
+  margin-bottom: 20px;
+}
+
+.btn-picpay {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #610585;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.promo-image img {
+  width: 400px;
+  border-radius: 10px;
+}
+
+/* Estilos específicos para a seção de projetos */
+.projetos-section {
+  padding: 80px 0;
+  background-color: #dfdede;
+  display: flex;
+}
+
+.projetos-section .container {
+  max-width: 1200px; /* Ajuste o valor conforme necessário */
+  margin: 0 auto;
+  padding: 20px; /* Ajuste o valor conforme necessário */
+  display: flex;
+  gap: 5rem;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start; /* Alinha a imagem e o texto no topo */
+  gap: 20px; /* Espaço entre a imagem e o texto */
+}
+
+.project-image {
+  width: 150px; /* Ajuste a largura conforme necessário */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+.text-content {
+  max-width: 600px; /* Ajuste a largura máxima do texto conforme necessário */
+}
+
+.projetos-section h2 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px; /* Ajusta a margem inferior do título */
+}
+
+.projetos-section p {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 40px; /* Ajusta a margem inferior do parágrafo */
+}
+
+.projetos-section2 {
+  padding: 80px 0;
+  background-color: #610585;
+  display: flex;
+}
+
+.projetos-section2 .container2 {
+  max-width: 1200px; /* Ajuste o valor conforme necessário */
+  margin: 0 auto;
+  padding: 20px; /* Ajuste o valor conforme necessário */
+  display: flex;
+  gap: 5rem;
+}
+
+.content2 {
+  display: flex;
+  align-items: flex-start; /* Alinha a imagem e o texto no topo */
+  gap: 20px; /* Espaço entre a imagem e o texto */
+}
+
+.project-image2 {
+  width: 150px; /* Ajuste a largura conforme necessário */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+.text-content2 {
+  max-width: 600px; /* Ajuste a largura máxima do texto conforme necessário */
+}
+
+.projetos-section2 h2 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px; /* Ajusta a margem inferior do título */
+}
+
+.projetos-section2 p {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 40px; /* Ajusta a margem inferior do parágrafo */
+}
