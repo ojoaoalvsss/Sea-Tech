@@ -43,11 +43,21 @@
                         <a href="index.html">Menu inicial</a>
                         <a href="cadastro.html">Cadastrar-se</a>
                     </div>
+                    <!-- <div id="div_aguardar" style="display: none;">
+                        <p>Aguarde...</p>
+                    </div> -->
                 </div>
             </div>
+            <div id="div_aguardar" class="loading-div">
+                <img src="" id="loading-gif">
+            </div>
+
+
+
             <div id="div_erros_login"></div>
         </div>
 </body>
+
 </html>
 <script>
 
@@ -55,12 +65,18 @@
     function entrar() {
         aguardar();
 
+
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            cardErro.className = "card_erro erro";
+            mensagem_erro.innerHTML = "Os Campos estão em Branco";
+
+            setTimeout(() => {
+                cardErro.style.display = "none";
+            }, 3000);
             finalizarAguardar();
             return false;
         }
@@ -85,6 +101,10 @@
 
             if (resposta.ok) {
                 console.log(resposta);
+                cardErro.style.display = "block";
+                cardErro.className = "card_erro sucesso";
+                mensagem_erro.innerHTML =
+                    "Login realizado com sucesso!";
 
                 resposta.json().then(json => {
                     console.log(json);
@@ -96,7 +116,7 @@
 
                     setTimeout(function () {
                         window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
+                    }, 1500); // apenas para exibir o loading
 
                 });
 
@@ -120,5 +140,6 @@
     function sumirMensagem() {
         cardErro.style.display = "none"
     }
+
 
 </script>
