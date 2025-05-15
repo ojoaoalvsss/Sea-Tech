@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Quiz de Pescaria</title>
+    <title>Quiz 1</title>
     <link rel="stylesheet" href="../css/style-quiz.css">
     <link rel="stylesheet" href="../css/menu-hamburguer.css">
 </head>
@@ -36,7 +36,7 @@
 </nav>
 <div class="quiz-container">
     <center>
-        <h1>O que você sabe sobrê PESCA?</h1>
+        <h1>Se você está aqui você já é um profissional!</h1>
     </center>
     <center><button id="iniciar" class="botao">Iniciar Quiz</button></center>
     <div id="questao" class="quiz-question" style="display: none"></div>
@@ -46,71 +46,71 @@
 </div>
 
 <script>
-    const perguntas = [
+    var perguntas = [
         {
-            questao: "Qual é o melhor horário para pescar?",
+            questao: "Questão 1 - Qual é o melhor horário para pescar?",
             opcoes: ["Meio-dia", "Madrugada", "Amanhecer e entardecer"],
             resposta: "Amanhecer e entardecer"
         },
         {
-            questao: "Qual peixe é comum em água doce?",
+            questao: "Questão 2 - Qual peixe é comum em água doce?",
             opcoes: ["Atum", "Piranha", "Sardinha"],
             resposta: "Piranha"
         },
         {
-            questao: "Qual é o nome do equipamento usado para lançar a linha?",
+            questao: "Questão 3 - Qual é o nome do equipamento usado para lançar a linha?",
             opcoes: ["Vara de pesca", "Rodo", "Bomba d'água"],
             resposta: "Vara de pesca"
         },
         {
-            questao: "O que é 'isca artificial'?",
+            questao: "Questão 4 - O que é 'isca artificial'?",
             opcoes: ["Comida real", "Objeto que imita a presa", "Vara automatizada"],
             resposta: "Objeto que imita a presa"
         },
         {
-            questao: "Em qual dessas modalidades o peixe é devolvido à água?",
+            questao: "Questão 5 - Em qual dessas modalidades o peixe é devolvido à água?",
             opcoes: ["Pesca esportiva", "Pesca predatória", "Pesca submarina"],
             resposta: "Pesca esportiva"
         },
         {
-            questao: "Qual peixe é famoso pela luta durante a pesca?",
+            questao: "Questão 6 - Qual peixe é famoso pela luta durante a pesca?",
             opcoes: ["Tilápia", "Tucunaré", "Carpa"],
             resposta: "Tucunaré"
         },
         {
-            questao: "Qual é um tipo de anzol?",
+            questao: "Questão 7 - Qual é um tipo de anzol?",
             opcoes: ["Mosquitinho", "Jig", "Flecha"],
             resposta: "Jig"
         },
         {
-            questao: "Qual é um cuidado importante na pesca?",
+            questao: "Questão 8 - Qual é um cuidado importante na pesca?",
             opcoes: ["Poluir o rio", "Respeitar o tamanho mínimo do peixe", "Usar dinamite"],
             resposta: "Respeitar o tamanho mínimo do peixe"
         },
         {
-            questao: "O que significa pescar com 'fly fishing'?",
+            questao: "Questão 9 - O que significa pescar com 'fly fishing'?",
             opcoes: ["Usar moscas reais", "Isca leve com técnica de arremesso", "Pescar em locais altos"],
             resposta: "Isca leve com técnica de arremesso"
         },
         {
-            questao: "Qual é a função da chumbada?",
+            questao: "Questão 10 - Qual é a função da chumbada?",
             opcoes: ["Aumentar o brilho", "Afundar a linha", "Atrair com som"],
             resposta: "Afundar a linha"
         }
     ];
 
-    //   let currentQuestion = 0;
-    //   let score = 0;
+    //   var currentQuestion = 0;
+    //   var score = 0;
 
-    let perguntaAtual = 0;
-    let acertos = 0;
-    let erros = 0;
+    var perguntaAtual = 0;
+    var acertos = 0;
+    var erros = 0;
 
-    const elementoPergunta = document.getElementById("questao");
-    const elementoOpcoes = document.getElementById("opcoes");
-    const elementoResultado = document.getElementById("resultado");
-    const botaoIniciar = document.getElementById("iniciar");
-    const botaoEnviar = document.getElementById("enviar");
+    var elementoPergunta = document.getElementById("questao");
+    var elementoOpcoes = document.getElementById("opcoes");
+    var elementoResultado = document.getElementById("resultado");
+    var botaoIniciar = document.getElementById("iniciar");
+    var botaoEnviar = document.getElementById("enviar");
 
     botaoIniciar.addEventListener("click", () => iniciarQuiz());
 
@@ -128,11 +128,11 @@
             perguntas[perguntaAtual].questao;
         elementoOpcoes.innerHTML = "";
         for (
-            let i = 0;
+            var i = 0;
             i < perguntas[perguntaAtual].opcoes.length;
             i++
         ) {
-            const botao = document.createElement("button");
+            var botao = document.createElement("button");
             botao.textContent = perguntas[perguntaAtual].opcoes[i];
             botao.classList.add("quiz-opcao"); // Adiciona a classe botao-opcao
             botao.addEventListener("click", () =>
@@ -143,7 +143,7 @@
     }
 
     function verificarResposta(opcao) {
-        const opcoes = elementoOpcoes.querySelectorAll(".quiz-opcao");
+        var opcoes = elementoOpcoes.querySelectorAll(".quiz-opcao");
         opcoes.forEach(botao => {
             botao.disabled = true;
             if (botao.textContent === perguntas[perguntaAtual].resposta) {
@@ -167,28 +167,28 @@
     }
 
     function mostrarResultado() {
-        const totalPerguntas = perguntas.length;
-        const perguntasRespondidas = acertos + erros;
+        var totalPerguntas = perguntas.length;
+        var perguntasRespondidas = acertos + erros;
 
         elementoPergunta.style.display = "none";
         elementoOpcoes.style.display = "none";
         botaoEnviar.style.display = "none";
-        const porcentagemAcertos = ((acertos / perguntas.length) * 100);
+        var porcentagemAcertos = ((acertos / perguntas.length) * 100);
         elementoResultado.textContent = `Você acertou ${porcentagemAcertos}% de questões.`;
         elementoResultado.style.display = "block";
         enviarPontuacao(acertos, erros, 1);
 
-        // Redirecionar para a página de ranking após 3 segundos
+        // Redirecionar para a página de perfil após 3 segundos
         setTimeout(() => {
-            window.location.href = 'oi.html';
-        }, 2000);
+            window.location.href = 'meuperfil.html';
+        }, 3000);
     }
 
 
     function enviarPontuacao(acertos, erros, categoriaId) {
-        const userId = sessionStorage.ID_USUARIO;
-        const url = "/usuarios/armazenarPontuacao";
-        const dados = {
+        var userId = sessionStorage.ID_USUARIO;
+        var url = "/usuarios/armazenarPontuacao";
+        var dados = {
             userId: userId,
             acertos: acertos,
             erros: erros,
@@ -223,7 +223,7 @@
         menuhamburguer.classList.toggle('open');
         document.body.classList.toggle('menu-open');
     });
-    const menuItems = document.querySelectorAll('.menu-items li');
+    var menuItems = document.querySelectorAll('.menu-items li');
 
     menuItems.forEach(item => {
         item.addEventListener('click', function () {
