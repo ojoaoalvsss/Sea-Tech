@@ -12,4 +12,11 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/armazenarPontuacao", usuarioController.armazenarPontuacao);
+
+router.get(
+	"/obterPontuacoes/:userId/:quizType",
+	usuarioController.obterPontuacoes
+);
+
 module.exports = router;

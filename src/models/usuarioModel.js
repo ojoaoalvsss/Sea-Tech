@@ -22,7 +22,28 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function inserirPontuacaoUsuario(idUsuario, acertos, erros, fkCategoria) {
+    var instrucaoSql = `INSERT INTO Resposta (acertos, erros, fk_usuario, fkCategoria) VALUES (${acertos}, ${erros} ,${idUsuario}, ${fkCategoria});`;
+    return database.executar(instrucaoSql);
+}
+
+function verificarPontuacaoUsuario(idUsuario, categoriaID) {
+    var instrucaoSql = `SELECT * FROM Resposta WHERE fk_usuario = ${idUsuario} AND fkCategoria = ${categoriaID};`;
+    return database.executar(instrucaoSql)
+}
+
+function obterPontuacoes(userId, quizType) {
+	const query = `
+        SELECT acertos, erros
+        FROM Resposta
+        WHERE fk_usuario = ${userId} AND fkCategoria = ${quizType}
+    `;
+	return database.executar(query);
+}
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    inserirPontuacaoUsuario,
+    verificarPontuacaoUsuario,
+    obterPontuacoes
 };

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz de Pescaria</title>
+    <link rel="stylesheet" href="../css/style-quiz.css">
+    <link rel="stylesheet" href="../css/menu-hamburguer.css">
+</head>
+
+<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()"></body>
+
+<header id="main-header">
+    <div class="menu-icone" id="menu-icone">
+        <img src="../assets/imgs/menu.png" alt="Menu" class="menu-img">
+    </div>
+</header>
+
+<nav id="menuhamburguer">
+    <div class="logo">
+        <img src="../assets/imgs/logo (2).png" alt="Logo">
+    </div>
+    <ul class="menu-items">
+        <li class="naoAtivo"><a href="#"><img src="../assets/imgs/Home.png" alt="Ícone 1">Pagina Inicial</a>
+        </li>
+        <li class="ativo"><a href="#"><img src="../assets/imgs/relatorio.png"
+                    alt="Ícone 1">Quiz</a></li>
+        <li class="naoAtivo"><a href="#"><img src="../assets/imgs/relatorio.png" alt="Ícone 1">Pontuação</a>
+        </li>
+        <li class="naoAtivo"><a href="#"><img src="../assets/imgs/relatorio.png"
+                    alt="Ícone 1">Jogo</a></li>
+        <li class="naoAtivo"><a href="CadastroFunc.html"><img src="../assets/imgs/perfil.png"
+                    alt="Ícone 1">Ranking</a></li>
+        <li class="naoAtivo"><a href="../login.html"><img src="../assets/imgs/sair.png" alt="Ícone 1">Sair</a></li>
+    </ul>
+</nav>
+<div class="quiz-container">
+    <center>
+        <h1>O que você sabe sobrê PESCA?</h1>
+    </center>
+    <center><button id="iniciar" class="botao">Iniciar Quiz</button></center>
+    <div id="questao" class="quiz-question" style="display: none"></div>
+    <div id="opcoes" class="quiz-options" style="display: none"></div>
+    <button id="enviar" style="display: none">Enviar</button>
+    <div id="resultado" style="display: none"></div>
+</div>
+
+<script>
+    const perguntas = [
+        {
+            questao: "Qual é o melhor horário para pescar?",
+            opcoes: ["Meio-dia", "Madrugada", "Amanhecer e entardecer"],
+            resposta: "Amanhecer e entardecer"
+        },
+        {
+            questao: "Qual peixe é comum em água doce?",
+            opcoes: ["Atum", "Piranha", "Sardinha"],
+            resposta: "Piranha"
+        },
+        {
+            questao: "Qual é o nome do equipamento usado para lançar a linha?",
+            opcoes: ["Vara de pesca", "Rodo", "Bomba d'água"],
+            resposta: "Vara de pesca"
+        },
+        {
+            questao: "O que é 'isca artificial'?",
+            opcoes: ["Comida real", "Objeto que imita a presa", "Vara automatizada"],
+            resposta: "Objeto que imita a presa"
+        },
+        {
+            questao: "Em qual dessas modalidades o peixe é devolvido à água?",
+            opcoes: ["Pesca esportiva", "Pesca predatória", "Pesca submarina"],
+            resposta: "Pesca esportiva"
+        },
+        {
+            questao: "Qual peixe é famoso pela luta durante a pesca?",
+            opcoes: ["Tilápia", "Tucunaré", "Carpa"],
+            resposta: "Tucunaré"
+        },
+        {
+            questao: "Qual é um tipo de anzol?",
+            opcoes: ["Mosquitinho", "Jig", "Flecha"],
+            resposta: "Jig"
+        },
+        {
+            questao: "Qual é um cuidado importante na pesca?",
+            opcoes: ["Poluir o rio", "Respeitar o tamanho mínimo do peixe", "Usar dinamite"],
+            resposta: "Respeitar o tamanho mínimo do peixe"
+        },
+        {
+            questao: "O que significa pescar com 'fly fishing'?",
+            opcoes: ["Usar moscas reais", "Isca leve com técnica de arremesso", "Pescar em locais altos"],
+            resposta: "Isca leve com técnica de arremesso"
+        },
+        {
+            questao: "Qual é a função da chumbada?",
+            opcoes: ["Aumentar o brilho", "Afundar a linha", "Atrair com som"],
+            resposta: "Afundar a linha"
+        }
+    ];
+
+    //   let currentQuestion = 0;
+    //   let score = 0;
+
+    let perguntaAtual = 0;
+    let acertos = 0;
+    let erros = 0;
+
+    const elementoPergunta = document.getElementById("questao");
+    const elementoOpcoes = document.getElementById("opcoes");
+    const elementoResultado = document.getElementById("resultado");
+    const botaoIniciar = document.getElementById("iniciar");
+    const botaoEnviar = document.getElementById("enviar");
+
+    botaoIniciar.addEventListener("click", () => iniciarQuiz());
+
+    function iniciarQuiz() {
+        perguntaAtual = 0;
+        exibirPergunta();
+        botaoIniciar.style.display = "none";
+        elementoPergunta.style.display = "block";
+        elementoOpcoes.style.display = "block";
+        botaoEnviar.style.display = "none";
+    }
+
+    function exibirPergunta() {
+        elementoPergunta.textContent =
+            perguntas[perguntaAtual].questao;
+        elementoOpcoes.innerHTML = "";
+        for (
+            let i = 0;
+            i < perguntas[perguntaAtual].opcoes.length;
+            i++
+        ) {
+            const botao = document.createElement("button");
+            botao.textContent = perguntas[perguntaAtual].opcoes[i];
+            botao.classList.add("quiz-opcao"); // Adiciona a classe botao-opcao
+            botao.addEventListener("click", () =>
+                verificarResposta(perguntas[perguntaAtual].opcoes[i])
+            );
+            elementoOpcoes.appendChild(botao);
+        }
+    }
+
+    function verificarResposta(opcao) {
+        const opcoes = elementoOpcoes.querySelectorAll(".quiz-opcao");
+        opcoes.forEach(botao => {
+            botao.disabled = true;
+            if (botao.textContent === perguntas[perguntaAtual].resposta) {
+                botao.classList.add("correta");
+            } else if (botao.textContent === opcao) {
+                botao.classList.add("errada");
+            }
+        });
+        if (opcao === perguntas[perguntaAtual].resposta) {
+            acertos++;
+        } else[
+            erros++
+        ]
+        perguntaAtual++;
+        if (perguntaAtual < perguntas.length) {
+            setTimeout(() => exibirPergunta(), 1000); // Exibe próxima pergunta após 1 segundo
+        } else {
+            setTimeout(() => mostrarResultado(), 1000); // Mostra resultado após 1 segundo
+
+        }
+    }
+
+    function mostrarResultado() {
+        const totalPerguntas = perguntas.length;
+        const perguntasRespondidas = acertos + erros;
+
+        elementoPergunta.style.display = "none";
+        elementoOpcoes.style.display = "none";
+        botaoEnviar.style.display = "none";
+        const porcentagemAcertos = ((acertos / perguntas.length) * 100);
+        elementoResultado.textContent = `Você acertou ${porcentagemAcertos}% de questões.`;
+        elementoResultado.style.display = "block";
+        enviarPontuacao(acertos, erros, 1);
+
+        // Redirecionar para a página de ranking após 3 segundos
+        setTimeout(() => {
+            window.location.href = 'oi.html';
+        }, 2000);
+    }
+
+
+    function enviarPontuacao(acertos, erros, categoriaId) {
+        const userId = sessionStorage.ID_USUARIO;
+        const url = "/usuarios/armazenarPontuacao";
+        const dados = {
+            userId: userId,
+            acertos: acertos,
+            erros: erros,
+            categoriaId: categoriaId
+        };
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dados),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log("Pontuação enviada com sucesso!");
+                } else {
+                    console.error("Falha ao enviar pontuação.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao enviar pontuação:", error);
+            });
+    }
+
+    // menu hamburguer
+    document.getElementById('menu-icone').addEventListener('click', function () {
+        var menuhamburguer = document.getElementById('menuhamburguer');
+        var mainContainer = document.getElementById('main-Container');
+        var header = document.getElementById('main-header');
+
+        menuhamburguer.classList.toggle('open');
+        document.body.classList.toggle('menu-open');
+    });
+    const menuItems = document.querySelectorAll('.menu-items li');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            menuItems.forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+
+</html>
