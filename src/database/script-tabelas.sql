@@ -61,13 +61,34 @@ comandos para mysql server
 -- insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
 -- insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
 
-create database projeto_individual;
+create database Sea_Tech;
 
-use projeto_individual;
+use Sea_Tech;
 
 create table usuario(
 id int primary key auto_increment,
 nome varchar (45),
 email varchar (45),
 senha varchar (45)
+);
+
+CREATE TABLE Categoria (
+	idCategoria INT PRIMARY KEY,
+	categoria VARCHAR (45)
+);
+
+INSERT INTO Categoria VALUES
+(1, 'Facil'),
+(2, 'Médio'),
+(3, 'Difícil'); 
+
+
+CREATE TABLE Resposta (
+    idResposta INT PRIMARY KEY AUTO_INCREMENT,
+    acertos INT,
+    erros INT,
+    fk_usuario INT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
+    fkCategoria INT,
+	FOREIGN KEY (fkCategoria) REFERENCES Categoria(idCategoria)
 );
