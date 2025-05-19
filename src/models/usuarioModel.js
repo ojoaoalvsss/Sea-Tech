@@ -22,6 +22,8 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+// QUIZZ
+
 function inserirPontuacaoUsuario(idUsuario, acertos, erros, fkCategoria) {
     var instrucaoSql = `INSERT INTO Resposta (acertos, erros, fk_usuario, fkCategoria) VALUES (${acertos}, ${erros} ,${idUsuario}, ${fkCategoria});`;
     return database.executar(instrucaoSql);
@@ -40,10 +42,42 @@ function obterPontuacoes(userId, quizType) {
     `;
 	return database.executar(query);
 }
+
+function atualizarPontuacaoUsuario(idUsuario, acertos, erros, fkCategoria) {
+    var instrucaoSql = `UPDATE Resposta SET acertos = ${acertos}, erros = ${erros} WHERE fk_usuario = ${idUsuario} AND fkCategoria = ${fkCategoria};`;
+    return database.executar(instrucaoSql);
+}
+
+// JOGO 
+
+function verificarPontuacaoUsuarioJogo(idUsuario) {
+    var instrucaoSql = `SELECT * FROM Jogo WHERE fk_usuario = ${idUsuario};`;
+    return database.executar(instrucaoSql)
+}
+
+function inserirPontuacaoUsuarioJogo(idUsuario, pontos) {
+    var instrucaoSql = `INSERT INTO Jogo (pontos, fk_usuario) VALUES (${pontos}, ${idUsuario});`;
+    return database.executar(instrucaoSql);
+}
+
+function atualizarPontuacaoUsuarioJogo(idUsuario, pontos) {
+    var instrucaoSql = `UPDATE Jogo SET pontos = ${pontos} WHERE fk_usuario = ${idUsuario};`;
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
+
+    // QUIZZ
     inserirPontuacaoUsuario,
     verificarPontuacaoUsuario,
-    obterPontuacoes
+    obterPontuacoes,
+    atualizarPontuacaoUsuario,
+
+    // JOGO
+    verificarPontuacaoUsuarioJogo,
+    inserirPontuacaoUsuarioJogo,
+    atualizarPontuacaoUsuarioJogo
 };

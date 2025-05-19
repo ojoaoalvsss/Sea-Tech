@@ -1,0 +1,57 @@
+body {
+            margin: 0;
+            font-family: sans-serif;
+            background: #c2f0f7;
+            overflow: hidden;
+        }
+
+        #game {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            cursor: crosshair;
+        }
+
+        #btnIniciar {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            /* Garante que o botão fique na frente */
+        }
+
+        #peixe {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            display: none;
+            pointer-events: auto;
+            clip-path: circle(40% at center);
+            /* Clique mais preciso */
+        }
+
+        #hud {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        #fimJogo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            font-size: 22px;
+            border-radius: 10px;
+            display: none;
+        }

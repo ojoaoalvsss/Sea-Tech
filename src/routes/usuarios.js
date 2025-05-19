@@ -19,4 +19,6 @@ router.get(
 	usuarioController.obterPontuacoes
 );
 
+router.post("/armazenarPontuacaoJogo", usuarioController.armazenarPontuacaoJogo);
+
 module.exports = router;

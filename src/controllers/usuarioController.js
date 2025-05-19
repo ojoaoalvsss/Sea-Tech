@@ -94,11 +94,11 @@ function armazenarPontuacao(req, res) {
     var userId = req.body.userId;
     var acertos = req.body.acertos;
     var erros = req.body.erros;
-	var categoriaID = req.body.categoriaId;
+    var categoriaID = req.body.categoriaId;
 
 
     // Validações básicas
-	if (!userId || !acertos || !erros || !categoriaID) {
+    if (!userId || !acertos || !erros || !categoriaID) {
         return res
             .status(400)
             .send("Dados insuficientes para armazenar pontuação!");
@@ -121,7 +121,7 @@ function armazenarPontuacao(req, res) {
                     userId,
                     acertos,
                     erros,
-                    categoriaID 
+                    categoriaID
                 );
             }
         })
@@ -168,10 +168,56 @@ function obterPontuacoes(req, res) {
         });
 }
 
+function armazenarPontuacaoJogo(req, res) {
+    var userId = req.body.userId;
+    var pontos = req.body.pontos;
+
+
+    // Validações básicas
+    if (!userId || !pontos ) {
+        return res
+            .status(400)
+            .send("Dados insuficientes para armazenar pontuação!");
+    }
+
+    usuarioModel
+        .verificarPontuacaoUsuarioJogo(userId)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                // Usuário já tem uma pontuação nesta categoria, então atualize
+                return usuarioModel.atualizarPontuacaoUsuarioJogo(
+                    userId,
+                    pontos
+                );
+            } else {
+                // Usuário não tem pontuação nesta categoria, então insira
+                return usuarioModel.inserirPontuacaoUsuarioJogo(
+                    userId,
+                    pontos
+                );
+            }
+        })
+        .then(function () {
+            res.status(200).send(
+                "Pontuação armazenada ou atualizada com sucesso!"
+            );
+        })
+        .catch(function (erro) {
+            console.error(
+                "Erro ao armazenar ou atualizar pontuação do usuário:",
+                erro
+            );
+            res.status(500).send(
+                "Erro ao armazenar ou atualizar pontuação do usuário"
+            );
+        });
+}
+
 
 module.exports = {
     autenticar,
     cadastrar,
     armazenarPontuacao,
-    obterPontuacoes
+    obterPontuacoes,
+    armazenarPontuacaoJogo
 }

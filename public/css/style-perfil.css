@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0A2463;
+    background: linear-gradient(90deg, rgba(10, 36, 99, 1) 0%, rgba(46, 139, 87, 1) 100%, rgba(237, 221, 83, 1) 100%);
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: rgba(0, 0, 0, 0.304);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container2 {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.chart-container {
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #00000041;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: white;
+
+}
+
+
+.user-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.Nivel {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.bronze {
+    background-color: #cd7f32;
+    color: white;
+}
+
+.prata {
+    background-color: #c0c0c0;
+    color: black;
+}
+
+.ouro {
+    background-color: #ffd700;
+    color: black;
+}
+
+.charts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#classificacao {
+    flex: 1 1 45%;
+    /* Flexível, ocupa até 45% da largura */
+}
+
+#tabelaClassificacao {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tabelaClassificacao th,
+#tabelaClassificacao td {
+    border: 1px solid #dddddd5e;
+    padding: 10px;
+    text-align: center;
+}
+
+#tabelaClassificacao th {
+    background-color: #f2f2f256;
+}
+
+.info-box {
+    background-color: #f0f0f060;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 200px;
+    margin-top: 50px;
+}
+
+.info-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 17px;
+}

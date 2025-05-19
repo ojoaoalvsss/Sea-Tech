@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Pesca</title>
+    <link rel="stylesheet" href="../css/style-jogo.css">
+</head>
+
+<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+
+    <div id="game">
+        <button id="btnIniciar" onclick="iniciar()">Começar</button>
+        <img id="peixe" src="./image.png" alt="Peixe" />
+        <div id="hud">
+            Pontos: <span id="pontos">0</span><br />
+            Tempo: <span id="tempo">30</span>s
+        </div>
+        <div id="fimJogo"></div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    const btnIniciar = document.getElementById("btnIniciar");
+    const peixe = document.getElementById("peixe");
+    const pontosTexto = document.getElementById("pontos");
+    const tempoTexto = document.getElementById("tempo");
+    const fimJogo = document.getElementById("fimJogo");
+
+    let pontos = 0;
+    let tempo = 30;
+    let jogoRodando = false;
+
+    function iniciar() {
+        btnIniciar.style.display = "none";
+        pontos = 0;
+        tempo = 30;
+        jogoRodando = true;
+        pontosTexto.textContent = pontos;
+        tempoTexto.textContent = tempo;
+        mostrarPeixe();
+        contarTempo();
+    }
+
+    function contarTempo() {
+        var relogio = setInterval(function () {
+            if (!jogoRodando) return;
+            tempo--;
+            tempoTexto.textContent = tempo;
+
+            if (tempo <= 0) {
+                jogoRodando = false;
+                clearInterval(relogio);
+                peixe.style.display = "none";
+                fimJogo.innerHTML = "⏱️ Fim de jogo!<br>🎯 Pontos: <strong>" + pontos + "</strong>";
+                fimJogo.style.display = "block";
+                enviarPontuacao(pontos);
+            }
+        }, 1000);
+    }
+
+    function mostrarPeixe() {
+        if (!jogoRodando) return;
+
+        var x = Math.random() * (window.innerWidth - 80);
+        var y = Math.random() * (window.innerHeight - 80);
+        peixe.style.left = x + "px";
+        peixe.style.top = y + "px";
+        peixe.style.display = "block";
+
+        setTimeout(function () {
+            peixe.style.display = "none";
+            if (jogoRodando) {
+                setTimeout(mostrarPeixe, 1000);
+            }
+        }, 1000);
+    }
+
+    peixe.onclick = function () {
+        if (!jogoRodando) return;
+        pontos += 1;
+        pontosTexto.textContent = pontos;
+        peixe.style.display = "none";
+    };
+
+    function enviarPontuacao(pontos) {
+        const userId = sessionStorage.ID_USUARIO;
+        const url = "/usuarios/armazenarPontuacaoJogo";
+        const dados = {
+            userId: userId,
+            pontos: pontos,
+        };
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dados),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log("Pontuação enviada com sucesso!");
+                } else {
+                    console.error("Falha ao enviar pontuação.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao enviar pontuação:", error);
+            });
+    }
+</script>
