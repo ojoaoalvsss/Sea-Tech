@@ -36,7 +36,19 @@ fk_usuario INT,
 FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
 
+CREATE TABLE aviso (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	titulo VARCHAR(100),
+	descricao VARCHAR(150)
+);
+
+truncate table aviso;
+
 select * from Resposta;
 select * from Categoria;
 select * from usuario;
 select * from Jogo;
+select * from aviso;
+
+select * from aviso;
+
