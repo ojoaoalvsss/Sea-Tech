@@ -99,14 +99,14 @@
           <div class="div-form">
             <form id="form_postagem" method="post" onsubmit="return publicar()">
               <label> <br>
-                Título:
+                Seu Nome:
                 <br>
                 <input name="titulo" id="titulo" maxlength="100" type="text">
               </label>
               <br>
               <br>
               <label>
-                Descrição:
+                Comentário:
                 <br>
                 <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
               </label>
@@ -118,6 +118,11 @@
           <h1 class="h1_div">Mural de Avisos</h1>
           <div class="div-results">
             <div id="feed_container" class="feed-container">
+            </div>
+
+            <div class="comentarios-controle">
+              <button id="verMaisBtn" onclick="verMais()">Ver mais</button>
+              <button id="verMenosBtn" onclick="verMenos()" style="display: none;">Ver menos</button>
             </div>
           </div>
         </div>
@@ -167,6 +172,8 @@
         window.alert("Post realizado com sucesso!");
         // window.location = "index.html";
         limparFormulario();
+        atualizarFeed();
+        controlarComentarios();
         finalizarAguardar();
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
@@ -191,26 +198,36 @@
   }
 
   function deletar(idAviso) {
-    console.log("Criar função de apagar post escolhido - ID" + idAviso);
+    console.log("ID recebido para deletar:", idAviso);
+
+    if (!idAviso) {
+      alert("ID inválido para deletar");
+      return;
+    }
+
     fetch(`/avisos/deletar/${idAviso}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(function (resposta) {
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          alert("Post deletado com sucesso!");
 
-      if (resposta.ok) {
-        window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-        window.location = "/dashboard/mural.html"
-      } else if (resposta.status == 404) {
-        window.alert("Deu 404!");
-      } else {
-        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-      }
-    }).catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-    });
+          // Remove o post da tela diretamente
+          const postElement = document.getElementById("post_" + idAviso);
+          if (postElement) {
+            postElement.remove();
+          }
+
+          controlarComentarios(); // Atualiza a visibilidade dos botões
+        } else {
+          alert("Erro ao deletar o post");
+        }
+      })
+      .catch(function (erro) {
+        console.log("#ERRO:", erro);
+      });
   }
+
 
   function atualizarFeed() {
     fetch("/avisos/listar").then(function (resposta) {
@@ -228,10 +245,10 @@
 
           var feed = document.getElementById("feed_container");
           feed.innerHTML = "";
-          for (let i = 0; i < resposta.length; i++) {
+
+          for (let i = resposta.length - 1; i >= 0; i--) {
             var publicacao = resposta[i];
 
-            // criando e manipulando elementos do HTML via JavaScript
             var divPublicacao = document.createElement("div");
             var spanID = document.createElement("span");
             var spanTitulo = document.createElement("span");
@@ -241,11 +258,10 @@
             var btnEditar = document.createElement("button");
             var btnDeletar = document.createElement("button");
 
-
-            // spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
-            spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-            // spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-            divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+            spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+            spanTitulo.innerHTML = "Autor: <b> " + publicacao.titulo + "</b>";
+            spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+            divDescricao.innerHTML = "<b> <br>" + publicacao.descricao + "</b>";
             btnEditar.innerHTML = "Editar";
             btnDeletar.innerHTML = "Deletar";
 
@@ -254,17 +270,22 @@
             spanNome.className = "publicacao-nome";
             spanTitulo.className = "publicacao-titulo";
             divDescricao.className = "publicacao-descricao";
+            divButtons.className = "div-buttons";
+            btnEditar.className = "publicacao-btn-editar";
+            btnDeletar.className = "publicacao-btn-editar";
 
-            divButtons.className = "div-buttons"
-
+            // Evento para o botão Editar
             btnEditar.className = "publicacao-btn-editar"
             btnEditar.id = "btnEditar" + publicacao.idAviso;
             btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
 
+
+
+            // Evento para o botão Deletar (aqui é a mudança importante)
             btnDeletar.className = "publicacao-btn-editar"
             btnDeletar.id = "btnDeletar" + publicacao.idAviso;
             btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
-
+            divPublicacao.id = "post_" + publicacao.idAviso;
             divPublicacao.appendChild(spanID);
             divPublicacao.appendChild(spanNome);
             divPublicacao.appendChild(spanTitulo);
@@ -275,6 +296,7 @@
             feed.appendChild(divPublicacao);
           }
 
+          controlarComentarios();
           finalizarAguardar();
         });
       } else {
@@ -284,6 +306,40 @@
       console.error(resposta);
       finalizarAguardar();
     });
+  }
+
+
+
+  function controlarComentarios() {
+    const comentarios = document.querySelectorAll(".publicacao");
+    const verMaisBtn = document.getElementById("verMaisBtn");
+    const verMenosBtn = document.getElementById("verMenosBtn");
+
+    comentarios.forEach((comentario, index) => {
+      if (index < 4) {
+        comentario.classList.remove("oculta");
+      } else {
+        comentario.classList.add("oculta");
+      }
+    });
+
+    if (comentarios.length <= 3) {
+      verMaisBtn.style.display = "none";
+      verMenosBtn.style.display = "none";
+    } else {
+      verMaisBtn.style.display = "inline-block";
+      verMenosBtn.style.display = "none";
+    }
+  }
+
+  function verMais() {
+    document.querySelectorAll(".publicacao").forEach(el => el.classList.remove("oculta"));
+    document.getElementById("verMaisBtn").style.display = "none";
+    document.getElementById("verMenosBtn").style.display = "inline-block";
+  }
+
+  function verMenos() {
+    controlarComentarios();
   }
 
 </script>

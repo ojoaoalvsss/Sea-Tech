@@ -108,6 +108,7 @@ function editar(req, res) {
 function deletar(req, res) {
     var idAviso = req.params.idAviso;
 
+    console.log("ID recebido para deletar:", idAviso);
     avisoModel.deletar(idAviso)
         .then(
             function (resultado) {
