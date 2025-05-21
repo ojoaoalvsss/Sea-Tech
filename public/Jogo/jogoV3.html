@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Pesca</title>
+    <title>SeaTech O Jogo</title>
     <link rel="stylesheet" href="../css/style-jogo.css">
 </head>
 
@@ -35,7 +35,7 @@
     let jogoRodando = false;
 
     function iniciar() {
-        btnIniciar.style.display = "none";
+        btnIniciar.style.display = `none`;
         pontos = 0;
         tempo = 30;
         jogoRodando = true;
@@ -54,9 +54,9 @@
             if (tempo <= 0) {
                 jogoRodando = false;
                 clearInterval(relogio);
-                peixe.style.display = "none";
-                fimJogo.innerHTML = "⏱️ Fim de jogo!<br>🎯 Pontos: <strong>" + pontos + "</strong>";
-                fimJogo.style.display = "block";
+                peixe.style.display = `none`;
+                fimJogo.innerHTML = `⏱️ Fim de jogo!<br>🎯 Pontos: <strong>  ${pontos} </strong>`;
+                fimJogo.style.display = `block`;
                 enviarPontuacao(pontos);
             }
         }, 1000);
@@ -65,14 +65,20 @@
     function mostrarPeixe() {
         if (!jogoRodando) return;
 
+        // usando o math random na posição da imagem para ela aparecer de forma aleatória
         var x = Math.random() * (window.innerWidth - 80);
         var y = Math.random() * (window.innerHeight - 80);
+
+
         peixe.style.left = x + "px";
         peixe.style.top = y + "px";
         peixe.style.display = "block";
 
+        // para dar um tempo entre as aparições do peixe
         setTimeout(function () {
-            peixe.style.display = "none";
+
+            peixe.style.display = `none`;
+
             if (jogoRodando) {
                 setTimeout(mostrarPeixe, 1000);
             }
@@ -80,11 +86,15 @@
     }
 
     peixe.onclick = function () {
+
         if (!jogoRodando) return;
+
         pontos += 1;
         pontosTexto.textContent = pontos;
-        peixe.style.display = "none";
+        peixe.style.display = `none`;
     };
+
+    // enviar para a api
 
     function enviarPontuacao(pontos) {
         const userId = sessionStorage.ID_USUARIO;
