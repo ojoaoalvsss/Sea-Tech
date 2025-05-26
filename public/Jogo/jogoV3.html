@@ -6,7 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeaTech O Jogo</title>
     <link rel="stylesheet" href="../css/style-jogo.css">
+    <link rel="stylesheet" href="../css/menu-hamburguer.css">
+    <link rel="icon" href="../assets/imgs/sea tech- logo.png">
 </head>
+
+<header id="main-header">
+    <div class="menu-icone" id="menu-icone">
+        <img src="../assets/imgs/menu.png" alt="Menu" class="menu-img">
+    </div>
+</header>
+
+<nav id="menuhamburguer">
+    <div class="logo">
+        <img src="../assets/imgs/logo (2).png" alt="Logo">
+    </div>
+    <ul class="menu-items">
+        <li class="naoAtivo"><a href="../telas/inicial.html"><img src="../assets/imgs/Home.png">Pagina Inicial</a></li>
+        <li class="naoAtivo"><a href="#"><img src="../assets/imgs/Quiz.png">Quiz</a></li>
+        <li class="ativo"><a href="../Jogo/jogoV3.html"><img src="../assets/imgs/Jogo.png">Jogo</a></li>
+        <li class="naoAtivo"><a href="../meuperfil.html"><img src="../assets/imgs/perfil.png">Meu Perfil</a></li>
+        <li class="naoAtivo"><a href="../login.html"><img src="../assets/imgs/sair.png">Sair</a></li>
+    </ul>
+</nav>
 
 <body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
 
@@ -122,4 +143,22 @@
                 console.error("Erro ao enviar pontuação:", error);
             });
     }
+
+        // menu hamburguer
+    document.getElementById('menu-icone').addEventListener('click', function () {
+        var menuhamburguer = document.getElementById('menuhamburguer');
+        var mainContainer = document.getElementById('main-Container');
+        var header = document.getElementById('main-header');
+
+        menuhamburguer.classList.toggle('open');
+        document.body.classList.toggle('menu-open');
+    });
+    const menuItems = document.querySelectorAll('.menu-items li');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            menuItems.forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
 </script>

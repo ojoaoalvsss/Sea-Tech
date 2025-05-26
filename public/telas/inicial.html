@@ -6,19 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SeaTech - Home</title>
   <link rel="stylesheet" href="inicial.css" />
+  <link rel="stylesheet" href="../css/menu-hamburguer.css">
+  <link rel="icon" href="../assets/imgs/sea tech- logo.png">
 </head>
 
 <body>
-  <header>
-    <h1>Sea Tech</h1>
-    <nav>
-      <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#historia">História da Pesca</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
+  <header id="main-header">
+    <div class="menu-icone" id="menu-icone">
+      <img src="../assets/imgs/menu.png" alt="Menu" class="menu-img">
+    </div>
   </header>
+
+  <nav id="menuhamburguer">
+    <div class="logo">
+      <img src="../assets/imgs/logo (2).png" alt="Logo">
+    </div>
+    <ul class="menu-items">
+      <li class="ativo"><a href="#"><img src="../assets/imgs/Home.png" alt="Ícone 1">Home</a>
+      </li>
+      <li class="naoAtivo"><a href="../Quiz/categorias-quiz.html"><img src="../assets/imgs/Quiz.png" alt="Ícone 1">Quiz</a></li>
+      <li class="naoAtivo"><a href="../Jogo/jogoV3.html"><img src="../assets/imgs/Jogo.png" alt="Ícone 1">Jogo</a></li>
+      <li class="naoAtivo"><a href="../meuperfil.html"><img src="../assets/imgs/perfil.png" alt="Ícone 1">Meu
+          Perfil</a>
+      </li>
+      <li class="naoAtivo"><a href="../login.html"><img src="../assets/imgs/sair.png" alt="Ícone 1">Sair</a></li>
+    </ul>
+  </nav>
 
   <section id="inicio">
     <h2>A Jornada da Pesca Através dos Tempos</h2>
@@ -91,3 +104,23 @@
     <p>Contato: joao.ferreira@sptech.school</p>
   </footer>
 
+  <script>
+
+    // menu hamburguer
+    document.getElementById('menu-icone').addEventListener('click', function () {
+      var menuhamburguer = document.getElementById('menuhamburguer');
+      var mainContainer = document.getElementById('main-Container');
+      var header = document.getElementById('main-header');
+
+      menuhamburguer.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    });
+    const menuItems = document.querySelectorAll('.menu-items li');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', function () {
+        menuItems.forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
