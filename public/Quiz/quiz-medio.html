@@ -97,15 +97,15 @@
     //   var currentQuestion = 0;
     //   var score = 0;
 
-    var perguntaAtual = 0;
-    var acertos = 0;
-    var erros = 0;
+    let perguntaAtual = 0;
+    let acertos = 0;
+    let erros = 0;
 
-    var elementoPergunta = document.getElementById("questao");
-    var elementoOpcoes = document.getElementById("opcoes");
-    var elementoResultado = document.getElementById("resultado");
-    var botaoIniciar = document.getElementById("iniciar");
-    var botaoEnviar = document.getElementById("enviar");
+    const elementoPergunta = document.getElementById("questao");
+    const elementoOpcoes = document.getElementById("opcoes");
+    const elementoResultado = document.getElementById("resultado");
+    const botaoIniciar = document.getElementById("iniciar");
+    const botaoEnviar = document.getElementById("enviar");
 
     botaoIniciar.addEventListener("click", () => iniciarQuiz());
 
@@ -123,11 +123,11 @@
             perguntas[perguntaAtual].questao;
         elementoOpcoes.innerHTML = "";
         for (
-            var i = 0;
+            let i = 0;
             i < perguntas[perguntaAtual].opcoes.length;
             i++
         ) {
-            var botao = document.createElement("button");
+            const botao = document.createElement("button");
             botao.textContent = perguntas[perguntaAtual].opcoes[i];
             botao.classList.add("quiz-opcao"); // Adiciona a classe botao-opcao
             botao.addEventListener("click", () =>
@@ -138,7 +138,7 @@
     }
 
     function verificarResposta(opcao) {
-        var opcoes = elementoOpcoes.querySelectorAll(".quiz-opcao");
+        const opcoes = elementoOpcoes.querySelectorAll(".quiz-opcao");
         opcoes.forEach(botao => {
             botao.disabled = true;
             if (botao.textContent === perguntas[perguntaAtual].resposta) {
@@ -162,28 +162,28 @@
     }
 
     function mostrarResultado() {
-        var totalPerguntas = perguntas.length;
-        var perguntasRespondidas = acertos + erros;
+        const totalPerguntas = perguntas.length;
+        const perguntasRespondidas = acertos + erros;
 
         elementoPergunta.style.display = "none";
         elementoOpcoes.style.display = "none";
         botaoEnviar.style.display = "none";
-        var porcentagemAcertos = ((acertos / perguntas.length) * 100);
+        const porcentagemAcertos = ((acertos / perguntas.length) * 100);
         elementoResultado.textContent = `Você acertou ${porcentagemAcertos}% de questões.`;
         elementoResultado.style.display = "block";
-        enviarPontuacao(acertos, erros, 1);
+        enviarPontuacao(acertos, erros, 2);
 
         // Redirecionar para a página de ranking após 3 segundos
         setTimeout(() => {
-            window.location.href = 'meuperfil.html';
+            window.location.href = '../meuperfil.html';
         }, 2000);
     }
 
 
     function enviarPontuacao(acertos, erros, categoriaId) {
-        var userId = sessionStorage.ID_USUARIO;
-        var url = "/usuarios/armazenarPontuacao";
-        var dados = {
+        const userId = sessionStorage.ID_USUARIO;
+        const url = "/usuarios/armazenarPontuacao";
+        const dados = {
             userId: userId,
             acertos: acertos,
             erros: erros,

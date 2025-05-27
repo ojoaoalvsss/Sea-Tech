@@ -109,3 +109,8 @@ body {
 .info-box p {
     font-size: 17px;
 }
+
+.linha-usuario {
+    background-color: #ffffff25;
+    color: white;
+}

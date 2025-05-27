@@ -65,6 +65,15 @@ function atualizarPontuacaoUsuarioJogo(idUsuario, pontos) {
     return database.executar(instrucaoSql);
 }
 
+function obterSomaAcertosPorCategoria(idUsuario) {
+  const instrucaoSql = `
+    SELECT fkCategoria, SUM(acertos) AS totalAcertos
+    FROM Resposta
+    WHERE fk_usuario = ${idUsuario}
+    GROUP BY fkCategoria
+  `;
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
@@ -79,5 +88,6 @@ module.exports = {
     // JOGO
     verificarPontuacaoUsuarioJogo,
     inserirPontuacaoUsuarioJogo,
-    atualizarPontuacaoUsuarioJogo
+    atualizarPontuacaoUsuarioJogo,
+    obterSomaAcertosPorCategoria
 };

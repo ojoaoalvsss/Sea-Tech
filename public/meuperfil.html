@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/style-perfil.css">
     <link rel="stylesheet" href="./css/menu-hamburguer.css">
     <link rel="icon" href="./assets/imgs/sea tech- logo.png">
-    
+
 
 </head>
 
@@ -74,85 +74,73 @@
 
     <script>
 
+        function atualizarNivel(userId) {
 
-        // Dados fictícios de desempenho (de 0 a 100)
-        const desempenhoFacil = 80;
-        const desempenhoMedio = 60;
-        const desempenhoDificil = 90;
+            fetch(`usuarios/obterNivel/${userId}`)
+                .then(res => res.json())
+                .then(resultados => {
+                    let maior = resultados[0] || null;
 
-        function atualizarRanking() {
-            let NivelEl = document.getElementById("Nivel");
-
-            if (desempenhoDificil >= 70) {
-                NivelEl.textContent = "Nivel: Ouro";
-                NivelEl.className = "Nivel ouro";
-            } else if (desempenhoMedio >= 70) {
-                NivelEl.textContent = "Nivel: Prata";
-                NivelEl.className = "Nivel prata";
-            } else if (desempenhoFacil >= 70) {
-                NivelEl.textContent = "Nivel: Bronze";
-                NivelEl.className = "Nivel bronze";
-            } else {
-                NivelEl.textContent = "Nivel: Iniciante";
-                NivelEl.className = "Nivel";
-            }
-        }
-
-        function criarGrafico(id, label, valor) {
-            const ctx = document.getElementById(id).getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Acertos', 'Erros'],
-                    datasets: [{
-                        label: label,
-                        data: [valor, 100 - valor],
-                        backgroundColor: ['#4caf50', '#f44336'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
+                    for (let i = 1; i < resultados.length; i++) {
+                        if (resultados[i].totalAcertos > maior.totalAcertos) {
+                            maior = resultados[i];
                         }
                     }
-                }
-            });
+
+                    let nivel = 'Iniciante';
+                    let NivelEl = document.getElementById('Nivel');
+
+                    if (maior) {
+                        if (maior.fkCategoria === 3) {
+                            nivel = 'Ouro'
+                            NivelEl.className = "Nivel ouro"
+                        } else if (maior.fkCategoria === 2) {
+                            nivel = 'Prata'
+                            NivelEl.className = "Nivel prata"
+                        } else if (maior.fkCategoria === 1) {
+                            nivel = 'Bronze'
+                            NivelEl.className = "Nivel bronze"
+                        }
+                    }
+
+                    document.getElementById('Nivel').textContent = `Nível: ${nivel}`;
+                });
         }
 
-        // Criar os gráficos
-        criarGrafico('quizFacil', 'Quiz Fácil', desempenhoFacil);
-        criarGrafico('quizMedio', 'Quiz Médio', desempenhoMedio);
-        criarGrafico('quizDificil', 'Quiz Difícil', desempenhoDificil);
 
 
         function exibirJogadores() {
             fetch('/medidas/ranking')
                 .then(r => r.json())
                 .then(data => {
-                    console.log('Resposta da API:', data);   // debug
-
                     const listaJogadores = document.getElementById('corpoTabela');
                     listaJogadores.innerHTML = '';
 
-                    /* se data já for array, usa; se for objeto, coloca em array */
                     const ranking = Array.isArray(data) ? data : [data];
+                    const nomeUsuarioAtual = sessionStorage.NOME_USUARIO;
 
                     ranking.forEach((item, idx) => {
+                        const ehUsuarioAtual = item.nome === nomeUsuarioAtual;
+
                         adicionarJogadorTabela(
                             listaJogadores,
                             item.nome,
                             item.total_pontos,
-                            idx + 1
+                            idx + 1,
+                            ehUsuarioAtual
                         );
                     });
                 })
                 .catch(err => console.error('Erro ao buscar ranking:', err));
         }
-        function adicionarJogadorTabela(tabela, nome, pontos, posicao) {
+
+        function adicionarJogadorTabela(tabela, nome, pontos, posicao, ehUsuarioAtual) {
             const linha = document.createElement("tr");
+
+
+            if (ehUsuarioAtual) {
+                linha.classList.add("linha-usuario");
+            }
             linha.innerHTML = `
         <td>${posicao}º</td>
         <td>${nome}</td>
@@ -163,8 +151,110 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             exibirJogadores();
-            atualizarRanking();
+            const userId = sessionStorage.ID_USUARIO;
+            atualizarNivel(userId);
         });
+
+
+        // EXIBIR OS GRAFICOS
+
+        const fetchData = (userId, quiz) => {
+            return fetch(`/usuarios/obterPontuacoes/${userId}/${quiz}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        console.error("Erro ao obter dados:", response.statusText);
+                        return null;
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao obter dados:", error);
+                    return null;
+                });
+        };
+
+        criarGrafico = (ctx, tipo, acertos, erros) => {
+            new Chart(ctx, {
+                type: tipo,
+                data: {
+                    labels: ["Acertos", "Erros"],
+                    datasets: [{
+                        data: [acertos, erros],
+                        backgroundColor: ["#4caf50", "#f44336"],
+                        borderColor: ["rgb(255, 255, 255, 0.1)", "rgb(48, 52, 63 , 0.1)"],
+                        borderWidth: 2,
+                    }],
+                },
+                options: {
+
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                            // ticks:{
+                            //     color: 'white'
+                            // }
+                        },
+                        y: {
+                            display: false
+                            // ticks:{
+                            //     color: 'white'
+                            // }
+                        },
+                    },
+                },
+            });
+        };
+
+        const exibirGraficoEvolucaoAcertos = (userId, quiz, chartId) => {
+            fetchData(userId, quiz).then(data => {
+                if (data) {
+                    const acertos = data.map(item => item.acertos);
+                    const erros = data.map(item => item.erros);
+
+                    console.log(`Acertos para quiz ${quiz}:`, acertos);
+                    console.log(`Erros para quiz ${quiz}:`, erros);
+
+                    const ctx = document.getElementById(chartId).getContext("2d");
+                    criarGrafico(ctx, "pie", acertos, erros);
+                }
+            });
+        };
+
+        const aparecerGraficos = () => {
+            const userId = sessionStorage.ID_USUARIO;
+            exibirGraficoEvolucaoAcertos(userId, 1, "quizFacil");
+            exibirGraficoEvolucaoAcertos(userId, 2, "quizMedio");
+            exibirGraficoEvolucaoAcertos(userId, 3, "quizDificil");
+
+            fetchData(userId, 1).then(data => {
+                if (data) {
+                    const acertos = data.map(item => item.acertos)[0];
+                }
+            });
+            fetchData(userId, 2).then(data => {
+                if (data) {
+                    const acertos = data.map(item => item.acertos)[0];
+                }
+            });
+
+            fetchData(userId, 3).then(data => {
+                if (data) {
+                    const acertos = data.map(item => item.acertos)[0];
+                }
+            });
+        };
+
+
+        document.addEventListener("DOMContentLoaded", aparecerGraficos);
+
 
         // menu hamburguer
         document.getElementById('menu-icone').addEventListener('click', function () {
@@ -172,7 +262,7 @@
             var mainContainer = document.getElementById('main-Container');
             var header = document.getElementById('main-header');
 
-            
+
             menuhamburguer.classList.toggle('open');
             document.body.classList.toggle('menu-open');
         });

@@ -17,8 +17,10 @@ router.post("/armazenarPontuacao", usuarioController.armazenarPontuacao);
 router.get(
 	"/obterPontuacoes/:userId/:quizType",
 	usuarioController.obterPontuacoes
-);
+);  
 
 router.post("/armazenarPontuacaoJogo", usuarioController.armazenarPontuacaoJogo);
+
+router.get('/obterNivel/:userId', usuarioController.obterNivel);
 
 module.exports = router;

@@ -90,6 +90,8 @@ function cadastrar(req, res) {
     }
 }
 
+// QUIZ
+
 function armazenarPontuacao(req, res) {
     var userId = req.body.userId;
     var acertos = req.body.acertos;
@@ -141,6 +143,8 @@ function armazenarPontuacao(req, res) {
         });
 }
 
+// GRAFICOS
+
 function obterPontuacoes(req, res) {
     const userId = req.params.userId;
     const quizType = req.params.quizType;
@@ -168,13 +172,15 @@ function obterPontuacoes(req, res) {
         });
 }
 
+// JOGO
+
 function armazenarPontuacaoJogo(req, res) {
     var userId = req.body.userId;
     var pontos = req.body.pontos;
 
 
     // Validações básicas
-    if (!userId || !pontos ) {
+    if (!userId || !pontos) {
         return res
             .status(400)
             .send("Dados insuficientes para armazenar pontuação!");
@@ -213,11 +219,26 @@ function armazenarPontuacaoJogo(req, res) {
         });
 }
 
+// RANKING
+
+function obterNivel(req, res) {
+    const userId = req.params.userId;
+
+    usuarioModel.obterSomaAcertosPorCategoria(userId)
+        .then(resultados => {
+            res.json(resultados);
+        })
+        .catch(err => {
+            console.error('Erro no controller:', err);
+            res.status(500).json({ erro: 'Erro ao obter pontuações do usuário' });
+        });
+}
 
 module.exports = {
     autenticar,
     cadastrar,
     armazenarPontuacao,
     obterPontuacoes,
-    armazenarPontuacaoJogo
+    armazenarPontuacaoJogo,
+    obterNivel
 }
