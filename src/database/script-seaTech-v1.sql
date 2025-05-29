@@ -19,7 +19,6 @@ INSERT INTO Categoria VALUES
 (2, 'Médio'),
 (3, 'Difícil'); 
 
-
 CREATE TABLE Resposta (
     idResposta INT PRIMARY KEY AUTO_INCREMENT,
     acertos INT,
@@ -30,6 +29,22 @@ CREATE TABLE Resposta (
 	FOREIGN KEY (fkCategoria) REFERENCES Categoria(idCategoria)
 );
 
+CREATE TABLE Jogo (
+idJogo INT PRIMARY KEY AUTO_INCREMENT,
+pontos INT,
+fk_usuario INT,
+FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE aviso (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	titulo VARCHAR(100),
+	descricao VARCHAR(150)
+);
+
 select * from Resposta;
 select * from Categoria;
-select * from Usuario;
+select * from usuario;
+select * from Jogo;
+select * from aviso;
+
