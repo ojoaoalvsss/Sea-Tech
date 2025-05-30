@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="inicial.css" />
   <link rel="stylesheet" href="../css/menu-hamburguer.css">
   <link rel="icon" href="../assets/imgs/sea tech- logo.png">
+  <link rel="js" href="../js/slides.js">
 </head>
 
 <body>
@@ -24,7 +25,8 @@
     <ul class="menu-items">
       <li class="ativo"><a href="#"><img src="../assets/imgs/Home.png" alt="Ícone 1">Home</a>
       </li>
-      <li class="naoAtivo"><a href="../Quiz/categorias-quiz.html"><img src="../assets/imgs/Quiz.png" alt="Ícone 1">Quiz</a></li>
+      <li class="naoAtivo"><a href="../Quiz/categorias-quiz.html"><img src="../assets/imgs/Quiz.png"
+            alt="Ícone 1">Quiz</a></li>
       <li class="naoAtivo"><a href="../Jogo/jogoV3.html"><img src="../assets/imgs/Jogo.png" alt="Ícone 1">Jogo</a></li>
       <li class="naoAtivo"><a href="../meuperfil.html"><img src="../assets/imgs/perfil.png" alt="Ícone 1">Meu
           Perfil</a>
@@ -67,11 +69,64 @@
     <h1>A Pesca</h1>
     <h2>Linha do tempo</h2>
     <ul>
-      <li><strong>Pré-história:</strong> Pesca com lanças, pedras e armadilhas simples (10.000 a.C.).</li>
-      <li><strong>Antiguidade:</strong> Egípcios e chineses usavam redes e anzóis de bronze.</li>
-      <li><strong>Idade Média:</strong> Expansão da pesca marítima com barcos maiores.</li>
-      <li><strong>Era Moderna:</strong> Varas com molinetes e redes de arrasto.</li>
-      <li><strong>Atualidade:</strong> Uso de GPS, drones, sensores e dados em tempo real.</li>
+
+      <div class="slider">
+        <div class="slides">
+          <!-- Bolinhas -->
+          <input type="radio" name="radio-btn" id="radio1">
+          <input type="radio" name="radio-btn" id="radio2">
+          <input type="radio" name="radio-btn" id="radio3">
+          <input type="radio" name="radio-btn" id="radio4">
+          <input type="radio" name="radio-btn" id="radio5">
+          <!-- Fim radio Buttons -->
+
+          <!-- slide images -->
+          <div class="slide first">
+            <img src="./SLIDE1.png" alt="imagem1">
+          </div>
+
+          <div class="slide">
+            <img src="./SLIDE2.png" alt="imagem2">
+          </div>
+
+          <div class="slide">
+            <img src="" alt="imagem3">
+          </div>
+
+          <div class="slide ">
+            <img src="" alt="imagem4">
+          </div>
+
+          <div class="slide ">
+            <img src="" alt="imagem5">
+          </div>
+
+          <!-- Fim de slide images -->
+
+
+          <!-- Navegação -->
+
+          <div class="navegation-auto">
+
+            <div class="auto-btn1"></div>
+            <div class="auto-btn2"></div>
+            <div class="auto-btn3"></div>
+            <div class="auto-btn4"></div>
+
+          </div>
+
+        </div>
+        <div class="manual-navegacao">
+          <label for="radio1" class="manual-btn"></label>
+          <label for="radio2" class="manual-btn"></label>
+          <label for="radio3" class="manual-btn"></label>
+          <label for="radio4" class="manual-btn"></label>
+          <label for="radio5" class="manual-btn"></label>
+        </div>
+      </div>
+
+
+
     </ul>
     <h1>Sua História</h1>
     <p>
@@ -105,6 +160,23 @@
   </footer>
 
   <script>
+
+    let contador = 1;
+    document.getElementById("radio1").checked = true;
+
+    setInterval(function(){
+      nextImage();
+    }, 5000
+  )
+
+  function nextImage(){
+    contador++
+    if(contador > 4){
+      contador = 1;
+    }
+
+    document.getElementById("radio" + contador).checked = true
+  }
 
     // menu hamburguer
     document.getElementById('menu-icone').addEventListener('click', function () {
