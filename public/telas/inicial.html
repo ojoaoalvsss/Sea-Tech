@@ -70,53 +70,54 @@
     <h2>Linha do tempo</h2>
     <ul>
 
+      <li><strong> Pré-história:</strong> Pesca com lanças, pedras e armadilhas simples (10.000 a.C.).</li>
+      <li><strong> Antiguidade:</strong> Egípcios e chineses usavam redes e anzóis de bronze.</li>
+      <li><strong> Idade Média:</strong> Expansão da pesca marítima com barcos maiores.</li>
+      <li><strong> Era Moderna:</strong> Varas com molinetes e redes de arrasto.</li>
+      <li><strong> Atualidade:</strong> Uso de GPS, drones, sensores e dados em tempo real.</li>
+
+
       <div class="slider">
         <div class="slides">
-          <!-- Bolinhas -->
+          <!-- bolinhas -->
           <input type="radio" name="radio-btn" id="radio1">
           <input type="radio" name="radio-btn" id="radio2">
           <input type="radio" name="radio-btn" id="radio3">
           <input type="radio" name="radio-btn" id="radio4">
           <input type="radio" name="radio-btn" id="radio5">
-          <!-- Fim radio Buttons -->
 
-          <!-- slide images -->
+
+          <!-- slide imagens -->
           <div class="slide first">
-            <img src="./SLIDE1.png" alt="imagem1">
+            <img src="./SLIDE1.png" alt="Imagem 1">
           </div>
-
           <div class="slide">
-            <img src="./SLIDE2.png" alt="imagem2">
+            <img src="./SLIDE2.png" alt="Imagem 2">
           </div>
-
           <div class="slide">
-            <img src="" alt="imagem3">
+            <img src="./SLIDE3.png" alt="Imagem 3">
           </div>
-
-          <div class="slide ">
-            <img src="" alt="imagem4">
+          <div class="slide">
+            <img src="" alt="Imagem 4">
           </div>
-
-          <div class="slide ">
-            <img src="" alt="imagem5">
+          <div class="slide">
+            <img src="" alt="Imagem 5">
           </div>
+          <!-- fim -->
 
-          <!-- Fim de slide images -->
+          <!-- navigation automatica -->
 
-
-          <!-- Navegação -->
-
-          <div class="navegation-auto">
-
+          <div class="navigation-auto">
             <div class="auto-btn1"></div>
             <div class="auto-btn2"></div>
             <div class="auto-btn3"></div>
             <div class="auto-btn4"></div>
-
+            <div class="auto-btn5"></div>
           </div>
 
         </div>
-        <div class="manual-navegacao">
+
+        <div class="manual-navigation">
           <label for="radio1" class="manual-btn"></label>
           <label for="radio2" class="manual-btn"></label>
           <label for="radio3" class="manual-btn"></label>
@@ -164,19 +165,19 @@
     let contador = 1;
     document.getElementById("radio1").checked = true;
 
-    setInterval(function(){
+    setInterval(function () {
       nextImage();
     }, 5000
-  )
+    )
 
-  function nextImage(){
-    contador++
-    if(contador > 4){
-      contador = 1;
+    function nextImage() {
+      contador++
+      if (contador > 5) {
+        contador = 1;
+      }
+
+      document.getElementById("radio" + contador).checked = true
     }
-
-    document.getElementById("radio" + contador).checked = true
-  }
 
     // menu hamburguer
     document.getElementById('menu-icone').addEventListener('click', function () {
