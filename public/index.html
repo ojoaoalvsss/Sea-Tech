@@ -29,7 +29,11 @@
         <span class="blue">desacelerar</span> o<br />
         <span class="green">tempo</span> e <span class="purple">valorizar o<br />momento</span>
       </h1>
-      <button onclick="">Sobre Mim</button>
+
+      <div class="botaoSobre">
+        <a href="#Sobre" id="linksobre">Sobre Mim</a>
+      </div>
+
 
     </div>
     <div class="hero-img">
@@ -37,7 +41,7 @@
     </div>
   </section>
 
-  <section class="sobre">
+  <section id="Sobre" class="sobre">
     <h2>SOBRE A PESCA</h2>
     <p class="desc">Pesca é o encontro entre o homem, a natureza e o tempo — uma arte de paciência, silêncio e conexão.
       <br>
@@ -258,9 +262,10 @@
             var btnEditar = document.createElement("button");
             var btnDeletar = document.createElement("button");
 
-            spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+            // spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+
             spanTitulo.innerHTML = "Autor: <b> " + publicacao.titulo + "</b>";
-            spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+            // spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
             divDescricao.innerHTML = "<b> <br>" + publicacao.descricao + "</b>";
             btnEditar.innerHTML = "Editar";
             btnDeletar.innerHTML = "Deletar";
@@ -341,5 +346,9 @@
   function verMenos() {
     controlarComentarios();
   }
+
+  document.getElementById('linksobre').addEventListener('click', function () {
+    scrollToSection('Sobre');
+  });
 
 </script>

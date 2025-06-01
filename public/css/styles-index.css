@@ -61,19 +61,26 @@ nav a:hover {
 }
 
 
-.hero-text button {
-  margin-top: 20px;
+.hero-text .botaoSobre {
+  text-decoration: none;
+  margin-top: 10px;
   background: #0a2463;
   color: #ffffff;
   border: none;
-  padding: 10px 40px;
+  padding: 8px 30px;
   cursor: pointer;
   font-weight: bold;
-  border-radius: 100px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  transition: transform 1.0s ease, box-shadow 0.3s ease;
+  width: 150px;
 }
 
-.hero-text button:hover {
+.hero-text a{
+  color: white;
+  text-decoration: none;
+}
+
+.hero-text .botaoSobre:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(10, 36, 99, 0.4);
   /* efeito de elevação */
