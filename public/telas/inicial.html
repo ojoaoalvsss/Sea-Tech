@@ -36,7 +36,7 @@
   </nav>
 
   <section id="inicio">
-    <h2>A Jornada da Pesca Através dos Tempos</h2>
+    <h2>O SEATECH</h2>
     <p>
       Desde os tempos antigos, a pesca tem sido uma atividade fundamental para a sobrevivência da humanidade. De simples
       armadilhas feitas com pedras até as mais modernas embarcações com sonar e GPS, a maneira como pescamos evoluiu
@@ -91,18 +91,23 @@
           <div class="slide first">
             <img src="./SLIDE1.png" alt="Imagem 1">
           </div>
+
           <div class="slide">
             <img src="./SLIDE2.png" alt="Imagem 2">
           </div>
+
           <div class="slide">
             <img src="./SLIDE3.png" alt="Imagem 3">
           </div>
+
           <div class="slide">
             <img src="./SLIDE4.png" alt="Imagem 4">
           </div>
+
           <div class="slide">
-            <img src="" alt="Imagem 5">
+            <img src="./SLIDE5.png" alt="Imagem 5">
           </div>
+
           <!-- fim -->
 
           <!-- navigation automatica -->
@@ -153,10 +158,100 @@
       natureza e o respeito pelos recursos naturais.
     </p>
   </section>
+  <section id="FundoEquipamento">
+    <!-- Descrição de equipamentos e dicas -->
+      <h2 style="text-align:center; font-size:32px; margin-bottom:30px;">Principais Equipamentos de Pesca</h2>
 
+      <div style="max-width:800px; margin:auto; line-height:1.8; font-size:18px;">
+
+        <div class="item">
+          <h3>1. Vara de Pesca</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Usada para lançar e recolher a linha. Tipos mais comuns:
+            <ul>
+              <li><b>Spinning:</b> leve e versátil.</li>
+              <li><b>Casting:</b> mais precisa, ideal para experientes.</li>
+              <li><b>Telescópica:</b> fácil de transportar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>2. Linha de Pesca</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            A linha conecta a isca ao anzol. Pode ser:
+            <ul>
+              <li><b>Monofilamento:</b> flexível e barata.</li>
+              <li><b>Multifilamento:</b> resistente e fina.</li>
+              <li><b>Fluorocarbono:</b> quase invisível na água.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>3. Anzóis</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Os anzóis vêm em diferentes tamanhos e formatos, sendo escolhidos de acordo com o tipo de peixe e isca. A
+            pesca esportiva costuma usar anzóis sem farpa.
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>4. Molinete ou Carretilha</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Equipamento para lançar e recolher a linha.
+            <ul>
+              <li><b>Molinete:</b> ideal para iniciantes, fácil de usar.</li>
+              <li><b>Carretilha:</b> oferece mais controle e precisão.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>5. Iscas</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            <b>Isco natural:</b> minhoca, camarão, peixe. <br>
+            <b>Artificial:</b> plásticos ou metal, simulando movimentos de presas.
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>6. Acessórios</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Alicate de bico, caixa de pesca, passaguá (rede para tirar o peixe), tesoura, e suporte de vara são
+            acessórios
+            fundamentais.
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>7. Equipamentos Adicionais</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Sonar para localizar peixes, GPS para navegação, barco ou caiaque de pesca para acessar melhores pontos.
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>8. Segurança e Roupas</h3>
+          <button class="btn-toggle">Ver mais</button>
+          <div class="verMais">
+            Use colete salva-vidas, óculos de proteção, chapéu com aba e roupas com proteção solar (UV).
+          </div>
+        </div>
+
+    </p>
+
+  </section>
   <!-- Rodapé -->
   <footer id="contato">
-    <p>João Victor Alves Ferreira - Sea Tech © 2025</p>
+    <p>João Victor Alves Ferreira - SeaTech © 2025</p>
     <p>Contato: joao.ferreira@sptech.school</p>
   </footer>
 
@@ -167,7 +262,7 @@
 
     setInterval(function () {
       nextImage();
-    }, 5000
+    }, 2000
     )
 
     function nextImage() {
@@ -194,6 +289,17 @@
       item.addEventListener('click', function () {
         menuItems.forEach(el => el.classList.remove('active'));
         this.classList.add('active');
+      });
+    });
+
+    // ver mais equipamentos
+
+    document.querySelectorAll('.btn-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const verMais = button.nextElementSibling;
+        const isVisible = verMais.style.display === 'block';
+        verMais.style.display = isVisible ? 'none' : 'block';
+        button.textContent = isVisible ? 'Ver mais' : 'Ver menos';
       });
     });
   </script>

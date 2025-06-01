@@ -2,100 +2,99 @@
 
 /* Reset e base */
 * {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #FFFFFF;
-  color: #FFFFFF;
+    font-family: Arial, sans-serif;
+    background: #0A2463;
+    background: linear-gradient(90deg, rgba(10, 36, 99, 1) 0%, rgba(46, 139, 87, 1) 100%, rgba(237, 221, 83, 1) 100%);
+    margin: 0;
+    padding: 0;
 }
-
-
-
 
 /* Seções */
 section {
-  background-color: black;
-  padding: 50px 20px;
-  max-width: 1000px;
-  margin: 40px auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(10, 36, 99, 0.2);
+    background-color: black;
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(10, 36, 99, 0.2);
 }
 
 section h2 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #2E8B57;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #2E8B57;
 }
 
 section h1 {
-  color: #2E8B57;
-  margin-bottom: 20px;
+    color: #2E8B57;
+    margin-bottom: 20px;
 }
 
 section p,
 section li {
-  font-size: 1.1em;
-  color: #FFFFFF;
+    font-size: 1.1em;
+    color: #FFFFFF;
 }
 
 /* Lista de eventos históricos */
 #historia ul {
-  background-color: #0A2463;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
+    background-color: #0A2463;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
 }
 
 #historia ul li {
-  margin-bottom: 10px;
-  color: #FFFFFF;
+    margin-bottom: 10px;
+    color: #FFFFFF;
 }
 
 /* Rodapé */
 footer {
-  background-color: black;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+    background-color: black;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
 }
 
-.slider{
+.slider {
     margin: 0 auto;
     width: 800px;
     height: 400px;
     overflow: hidden;
     margin-top: 50px;
     border-radius: 20px;
-   
+
 }
 
-.slides{
+.slides {
     width: 400%;
     height: 400px;
     display: flex;
 }
 
-.slides input{
+.slides input {
     display: none;
 }
 
-.slide{
+.slide {
     width: 25%;
     position: relative;
 }
 
-.slide img{
+.slide img {
     width: 800px;
     object-fit: cover;
 }
 
-.manual-navigation{
+.manual-navigation {
     position: absolute;
     width: 800px;
     margin-top: -40px;
@@ -103,7 +102,7 @@ footer {
     justify-content: center;
 }
 
-.manual-btn{
+.manual-btn {
     border: 2px solid #fff;
     padding: 5px;
     border-radius: 10px;
@@ -111,31 +110,35 @@ footer {
     transition: 1s;
 }
 
-.manual-btn:not(:last-child){
+.manual-btn:not(:last-child) {
     margin-right: 40px;
 }
 
-.manual-btn:hover{
+.manual-btn:hover {
     background-color: #fff;
 }
 
-#radio1:checked ~ .first{
+#radio1:checked~.first {
     margin-left: 0;
 }
 
-#radio2:checked ~ .first{
+#radio2:checked~.first {
     margin-left: -25%;
 }
 
-#radio3:checked ~ .first{
+#radio3:checked~.first {
     margin-left: -50%;
 }
 
-#radio4:checked ~ .first{
+#radio4:checked~.first {
     margin-left: -75%;
 }
 
-.navigation-auto div{
+#radio5:checked~.first {
+    margin-left: -100%;
+}
+
+.navigation-auto div {
     border: 2px solid #118a8a;
     padding: 5px;
     border-radius: 10px;
@@ -143,7 +146,7 @@ footer {
     transition: 1s;
 }
 
-.navigation-auto{
+.navigation-auto {
     position: absolute;
     width: 800px;
     margin-top: 360px;
@@ -151,22 +154,60 @@ footer {
     justify-content: center;
 }
 
-.navigation-auto div:not(:last-child){
+.navigation-auto div:not(:last-child) {
     margin-right: 40px;
 }
 
-#radio1:checked ~ .navigation-auto .auto-btn1{
+#radio1:checked~.navigation-auto .auto-btn1 {
     background-color: #2E8B57;
 }
 
-#radio2:checked ~ .navigation-auto .auto-btn2{
+#radio2:checked~.navigation-auto .auto-btn2 {
     background-color: #2E8B57;
 }
 
-#radio3:checked ~ .navigation-auto .auto-btn3{
+#radio3:checked~.navigation-auto .auto-btn3 {
     background-color: #2E8B57;
 }
 
-#radio4:checked ~ .navigation-auto .auto-btn4{
+#radio4:checked~.navigation-auto .auto-btn4 {
     background-color: #2E8B57;
+}
+
+#radio5:checked~.navigation-auto .auto-btn5 {
+    background-color: #2E8B57;
+}
+
+.item {
+    color: white;
+    background-color: #0A2463;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.item h3 {
+    margin-top: 0;
+}
+
+.btn-toggle {
+    background-color: #2E8B57;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.verMais {
+    display: none;
+    margin-top: 15px;
+    color: #ccc;
+}
+
+.verMais ul {
+    padding-left: 20px;
 }
