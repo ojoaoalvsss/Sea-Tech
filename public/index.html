@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sea Tech</title>
+  <title>SeaTech</title>
   <link rel="stylesheet" href="css/styles-index.css" />
   <link rel="icon" href="assets/imgs/sea tech- logo.png">
 </head>
@@ -110,7 +110,7 @@
               <br>
               <br>
               <label>
-                Comentário:
+                Experiências:
                 <br>
                 <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
               </label>
@@ -119,7 +119,7 @@
               <button>Enviar</button>
             </form>
           </div> <br> <br>
-          <h1 class="h1_div">Mural de Avisos</h1>
+          <h1 class="h1_div">Mural de Experiências</h1>
           <div class="div-results">
             <div id="feed_container" class="feed-container">
             </div>
@@ -137,7 +137,7 @@
     <div class="footer">
       <div class="container">
         <p>
-        <p>Oficial SEA TECH - João Victor Alves Ferreira &copy;</p>
+        <p>Oficial SEATECH - João Victor Alves Ferreira &copy;</p>
         <br>
       </div>
     </div>
@@ -250,7 +250,7 @@
           var feed = document.getElementById("feed_container");
           feed.innerHTML = "";
 
-          for (let i = resposta.length - 1; i >= 0; i--) {
+          for (var i = resposta.length - 1; i >= 0; i--) {
             var publicacao = resposta[i];
 
             var divPublicacao = document.createElement("div");
@@ -338,7 +338,10 @@
   }
 
   function verMais() {
-    document.querySelectorAll(".publicacao").forEach(el => el.classList.remove("oculta"));
+    var publicacoes = document.querySelectorAll(".publicacao");
+    for (var i = 0; i < publicacoes.length; i++) {
+      publicacoes[i].classList.remove("oculta");
+    }
     document.getElementById("verMaisBtn").style.display = "none";
     document.getElementById("verMenosBtn").style.display = "inline-block";
   }

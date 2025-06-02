@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sea Tech - Login</title>
+    <title>SeaTech - Login</title>
 
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -52,8 +52,6 @@
                 <img src="" id="loading-gif">
             </div>
 
-
-
             <div id="div_erros_login"></div>
         </div>
 </body>
@@ -61,10 +59,8 @@
 </html>
 <script>
 
-
     function entrar() {
         aguardar();
-
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
@@ -115,10 +111,8 @@
                     sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
                     setTimeout(function () {
-
                         window.location = "./telas/inicial.html";
-                        // window.location = "./dashboard/categorias-quiz.html";
-                    }, 1500); // apenas para exibir o loading
+                    }, 1500); 
 
                 });
 

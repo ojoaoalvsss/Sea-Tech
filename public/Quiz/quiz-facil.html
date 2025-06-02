@@ -122,11 +122,7 @@
         elementoPergunta.textContent =
             perguntas[perguntaAtual].questao;
         elementoOpcoes.innerHTML = "";
-        for (
-            let i = 0;
-            i < perguntas[perguntaAtual].opcoes.length;
-            i++
-        ) {
+        for (let i = 0; i < perguntas[perguntaAtual].opcoes.length; i++) {
             const botao = document.createElement("button");
             botao.textContent = perguntas[perguntaAtual].opcoes[i];
             botao.classList.add("quiz-opcao"); // Adiciona a classe botao-opcao
@@ -220,12 +216,14 @@
     });
     const menuItems = document.querySelectorAll('.menu-items li');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', function () {
-            menuItems.forEach(el => el.classList.remove('active'));
-            this.classList.add('active');
+    for (let i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener('click', function () {
+        for (let j = 0; j < menuItems.length; j++) {
+            menuItems[j].classList.remove('active');
+        }
+        menuItems[i].classList.add('active');
         });
-    });
+    };
 </script>
 
 </body>

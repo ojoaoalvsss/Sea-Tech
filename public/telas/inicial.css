@@ -1,6 +1,4 @@
-/* inicial.css */
 
-/* Reset e base */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +13,7 @@ body {
     padding: 0;
 }
 
-/* Seções */
+
 section {
     background-color: black;
     padding: 50px 20px;
@@ -42,7 +40,7 @@ section li {
     color: #FFFFFF;
 }
 
-/* Lista de eventos históricos */
+
 #historia ul {
     background-color: #0A2463;
     padding: 20px;
@@ -55,7 +53,6 @@ section li {
     color: #FFFFFF;
 }
 
-/* Rodapé */
 footer {
     background-color: black;
     color: #FFFFFF;

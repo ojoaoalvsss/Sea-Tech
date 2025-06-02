@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sea Tech - Cadastre-se</title>
+  <title>SeaTech - Cadastre-se</title>
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="assets/imgs/sea tech- logo.png">
 
@@ -13,7 +13,7 @@
 <body>
 
   <div class="alerta_erro">
-    <div class="card_erro" id="cardErro">
+    <div class="card_erro" id="erro">
       <span id="mensagem_erro"></span>
     </div>
   </div>
@@ -24,7 +24,7 @@
     <div class="right">
       <div class="login-box">
         <div class="form">
-          <h1>Acesse o Sea Tech</h1>
+          <h1>Acesse o SeaTech</h1>
 
           <span>Nome</span>
           <input type="text" id="nome_input" placeholder="Digite seu Nome">
@@ -59,30 +59,21 @@
   }
 
   function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+    
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    ) {
-      cardErro.style.display = "block";
-      cardErro.className = "card_erro erro";
+    // ver se tem campo em branco se tiver da erro
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+      erro.style.display = "block";
+      erro.className = "card_erro erro";
       mensagem_erro.innerHTML =
         "(Mensagem de erro para todos os campos em branco)";
 
       setTimeout(() => {
-        cardErro.style.display = "none";
+        erro.style.display = "none";
       }, 3000);
 
       finalizarAguardar();
@@ -90,7 +81,6 @@
     } else {
       setInterval(sumirMensagem, 5000);
     }
-
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -110,8 +100,8 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-          cardErro.className = "card_erro sucesso";
+          erro.style.display = "block";
+          erro.className = "card_erro sucesso";
           mensagem_erro.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
@@ -134,6 +124,6 @@
   }
 
   function sumirMensagem() {
-    cardErro.style.display = "none";
+    erro.style.display = "none";
   }
 </script>

@@ -39,7 +39,7 @@
             <h2 style="color: white;">Seu Perfil</h2>
             <div id="Nivel" class="Nivel">Carregando ranking...</div>
             <div id="classificacao" class="info-box">
-                <h3 style="color: white;">Classificação</h3>
+                <h3 style="color: white;">Classificação do Jogo</h3>
                 <table id="tabelaClassificacao">
                     <thead>
                         <tr>
@@ -79,16 +79,16 @@
             fetch(`usuarios/obterNivel/${userId}`)
                 .then(res => res.json())
                 .then(resultados => {
-                    let maior = resultados[0] || null;
+                    var maior = resultados[0] || null;
 
-                    for (let i = 1; i < resultados.length; i++) {
+                    for (var i = 1; i < resultados.length; i++) {
                         if (resultados[i].totalAcertos > maior.totalAcertos) {
                             maior = resultados[i];
                         }
                     }
 
-                    let nivel = 'Iniciante';
-                    let NivelEl = document.getElementById('Nivel');
+                    var nivel = 'Iniciante';
+                    var NivelEl = document.getElementById('Nivel');
 
                     if (maior) {
                         if (maior.fkCategoria === 3) {
@@ -107,8 +107,6 @@
                 });
         }
 
-
-
         function exibirJogadores() {
             fetch('/medidas/ranking')
                 .then(r => r.json())
@@ -119,17 +117,18 @@
                     const ranking = Array.isArray(data) ? data : [data];
                     const nomeUsuarioAtual = sessionStorage.NOME_USUARIO;
 
-                    ranking.forEach((item, idx) => {
-                        const ehUsuarioAtual = item.nome === nomeUsuarioAtual;
+                    for (var i = 0; i < ranking.length; i++) {
+                        var item = ranking[i];
+                        var ehUsuarioAtual = item.nome === nomeUsuarioAtual;
 
                         adicionarJogadorTabela(
                             listaJogadores,
                             item.nome,
                             item.total_pontos,
-                            idx + 1,
+                            i + 1,
                             ehUsuarioAtual
                         );
-                    });
+                    }
                 })
                 .catch(err => console.error('Erro ao buscar ranking:', err));
         }
@@ -155,8 +154,7 @@
             atualizarNivel(userId);
         });
 
-
-        // EXIBIR OS GRAFICOS
+        // mostra os gráfico
 
         const fetchData = (userId, quiz) => {
             return fetch(`/usuarios/obterPontuacoes/${userId}/${quiz}`)
@@ -252,9 +250,7 @@
             });
         };
 
-
         document.addEventListener("DOMContentLoaded", aparecerGraficos);
-
 
         // menu hamburguer
         document.getElementById('menu-icone').addEventListener('click', function () {
@@ -262,18 +258,19 @@
             var mainContainer = document.getElementById('main-Container');
             var header = document.getElementById('main-header');
 
-
             menuhamburguer.classList.toggle('open');
             document.body.classList.toggle('menu-open');
         });
-        const menuItems = document.querySelectorAll('.menu-items li');
+        const menuDeItens = document.querySelectorAll('.menu-items li');
 
-        menuItems.forEach(item => {
-            item.addEventListener('click', function () {
-                menuItems.forEach(el => el.classList.remove('active'));
-                this.classList.add('active');
+        for (var i = 0; i < menuDeItens.length; i++) {
+            menuDeItens[i].addEventListener('click', function () {
+                for (var j = 0; j < menuDeItens.length; j++) {
+                    menuDeItens[j].classList.remove('active');
+                }
+                menuDeItens[i].classList.add('active');
             });
-        });
+        };
 
     </script>
 </body>

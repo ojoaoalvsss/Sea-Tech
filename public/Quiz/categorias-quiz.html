@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sea Tech - Escolha o Nivel de Dificuldade</title>
+    <title>SeaTech - Escolha o Nivel de Dificuldade</title>
 
     <link rel="stylesheet" href="../css/style-quiz.css">
     <link rel="stylesheet" href="../css/menu-hamburguer.css">
@@ -60,11 +60,13 @@
     });
     const menuItems = document.querySelectorAll('.menu-items li');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', function () {
-            menuItems.forEach(el => el.classList.remove('active'));
-            this.classList.add('active');
+    for (let i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener('click', function () {
+        for (let j = 0; j < menuItems.length; j++) {
+            menuItems[j].classList.remove('active');
+        }
+        menuItems[i].classList.add('active');
         });
-    });
+    };
 
 </script>

@@ -14,8 +14,9 @@
     <div class="menu-icone" id="menu-icone">
         <img src="../assets/imgs/menu.png" alt="Menu" class="menu-img">
     </div>
-</header>
 
+</header>
+<!-- Menu Hamburguer -->
 <nav id="menuhamburguer">
     <div class="logo">
         <img src="../assets/imgs/logo (2).png" alt="Logo">
@@ -28,38 +29,40 @@
         <li class="naoAtivo"><a href="../login.html"><img src="../assets/imgs/sair.png">Sair</a></li>
     </ul>
 </nav>
-
+<!-- estudar esse onload -->
 <body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
 
-    <div id="game">
-        <button id="btnIniciar" onclick="iniciar()">Começar</button>
+    <div id="jogo">
+        <button id="botaoDeIniciar" onclick="iniciar()">Começar</button>
         <img id="peixe" src="./image.png" alt="Peixe" />
-        <div id="hud">
+        <div id="telinha">
             Pontos: <span id="pontos">0</span><br />
-            Tempo: <span id="tempo">30</span>s
+            Tempo: <span id="tempo">10</span>s
         </div>
-        <div id="fimJogo"></div>
+        <div id="Fim"></div>
 
     </div>
 </body>
 
 </html>
 <script>
-    const btnIniciar = document.getElementById("btnIniciar");
-    const peixe = document.getElementById("peixe");
-    const pontosTexto = document.getElementById("pontos");
-    const tempoTexto = document.getElementById("tempo");
-    const fimJogo = document.getElementById("fimJogo");
+    // n coloco como value prq n á valores que o usuario vai inserir
+    var botaoDeIniciar = document.getElementById("botaoDeIniciar");
+    var peixe = document.getElementById("peixe");
+    var pontosTexto = document.getElementById("pontos");
+    var tempoTexto = document.getElementById("tempo");
+    var Fim = document.getElementById("Fim");
 
-    let pontos = 0;
-    let tempo = 30;
-    let jogoRodando = false;
+    var pontos = 0;
+    var tempo = 10;
+    var jogoTaRodando = false;
 
+    // estudar o none
     function iniciar() {
-        btnIniciar.style.display = `none`;
+        botaoDeIniciar.style.display = `none`;
         pontos = 0;
-        tempo = 30;
-        jogoRodando = true;
+        tempo = 10;
+        jogoTaRodando = true;
         pontosTexto.textContent = pontos;
         tempoTexto.textContent = tempo;
         mostrarPeixe();
@@ -68,28 +71,30 @@
 
     function contarTempo() {
         var relogio = setInterval(function () {
-            if (!jogoRodando) return;
+            //prq ta definido false de começo.
+            if (!jogoTaRodando) return;
             tempo--;
             tempoTexto.textContent = tempo;
 
             if (tempo <= 0) {
-                jogoRodando = false;
+                jogoTaRodando = false;
                 clearInterval(relogio);
                 peixe.style.display = `none`;
-                fimJogo.innerHTML = `⏱️ Fim de jogo!<br>🎯 Pontos: <strong>  ${pontos} </strong>`;
-                fimJogo.style.display = `block`;
+                Fim.innerHTML = `⏱️ Fim de jogo!<br>🎯 Pontos: <strong>  ${pontos} </strong>`;
+                Fim.style.display = `block`;
                 enviarPontuacao(pontos);
             }
         }, 1000);
     }
 
     function mostrarPeixe() {
-        if (!jogoRodando) return;
+        if (!jogoTaRodando) {
+            return;
+        };
 
         // usando o math random na posição da imagem para ela aparecer de forma aleatória
         var x = Math.random() * (window.innerWidth - 80);
         var y = Math.random() * (window.innerHeight - 80);
-
 
         peixe.style.left = x + "px";
         peixe.style.top = y + "px";
@@ -97,10 +102,8 @@
 
         // para dar um tempo entre as aparições do peixe
         setTimeout(function () {
-
             peixe.style.display = `none`;
-
-            if (jogoRodando) {
+            if (jogoTaRodando) {
                 setTimeout(mostrarPeixe, 1000);
             }
         }, 1000);
@@ -108,19 +111,19 @@
 
     peixe.onclick = function () {
 
-        if (!jogoRodando) return;
+        if (!jogoTaRodando) return;
 
         pontos += 1;
         pontosTexto.textContent = pontos;
         peixe.style.display = `none`;
     };
 
-    // enviar para a api
+    // enviar para o banco os pontos do jogo
 
     function enviarPontuacao(pontos) {
-        const userId = sessionStorage.ID_USUARIO;
-        const url = "/usuarios/armazenarPontuacaoJogo";
-        const dados = {
+        var userId = sessionStorage.ID_USUARIO;
+        var url = "/usuarios/armazenarPontuacaoJogo";
+        var dados = {
             userId: userId,
             pontos: pontos,
         };
@@ -144,7 +147,7 @@
             });
     }
 
-        // menu hamburguer
+    // menu hamburguer
     document.getElementById('menu-icone').addEventListener('click', function () {
         var menuhamburguer = document.getElementById('menuhamburguer');
         var mainContainer = document.getElementById('main-Container');
@@ -153,12 +156,14 @@
         menuhamburguer.classList.toggle('open');
         document.body.classList.toggle('menu-open');
     });
-    const menuItems = document.querySelectorAll('.menu-items li');
+    const menuDeItens = document.querySelectorAll('.menu-items li');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', function () {
-            menuItems.forEach(el => el.classList.remove('active'));
-            this.classList.add('active');
+    for (var i = 0; i < menuDeItens.length; i++) {
+        menuDeItens[i].addEventListener('click', function () {
+            for (var j = 0; j < menuDeItens.length; j++) {
+                menuDeItens[j].classList.remove('active');
+            }
+            menuDeItens[i].classList.add('active');
         });
-    });
+    };
 </script>
