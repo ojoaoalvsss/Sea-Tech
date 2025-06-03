@@ -110,7 +110,7 @@ function armazenarPontuacao(req, res) {
         .verificarPontuacaoUsuario(userId, categoriaID)
         .then(function (resultado) {
             if (resultado.length > 0) {
-                // Usuário já tem uma pontuação nesta categoria, então atualize
+            
                 return usuarioModel.atualizarPontuacaoUsuario(
                     userId,
                     acertos,
@@ -118,7 +118,7 @@ function armazenarPontuacao(req, res) {
                     categoriaID
                 );
             } else {
-                // Usuário não tem pontuação nesta categoria, então insira
+
                 return usuarioModel.inserirPontuacaoUsuario(
                     userId,
                     acertos,
@@ -159,7 +159,7 @@ function obterPontuacoes(req, res) {
 
     usuarioModel.obterPontuacoes(userId, quizType)
         .then(resultado => {
-            console.log("Resultado da consulta:", resultado); // Log para depuração
+            console.log("Resultado da consulta:", resultado);
             if (resultado.length > 0) {
                 res.json(resultado);
             } else {
@@ -187,7 +187,7 @@ function armazenarPontuacaoJogo(req, res) {
     }
 
     usuarioModel
-        .verificarPontuacaoUsuarioJogo(userId)
+    .verificarPontuacaoUsuarioJogo(userId)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 // Usuário já tem uma pontuação nesta categoria, então atualize
