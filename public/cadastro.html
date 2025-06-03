@@ -65,7 +65,7 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    // ver se tem campo em branco se tiver da erro
+   
     if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
       erro.style.display = "block";
       erro.className = "card_erro erro";
@@ -82,15 +82,14 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    // Enviando o valor da nova input
+    
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
+  
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,

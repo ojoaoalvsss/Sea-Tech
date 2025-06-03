@@ -216,13 +216,12 @@
         if (resposta.ok) {
           alert("Post deletado com sucesso!");
 
-          // Remove o post da tela diretamente
           const postElement = document.getElementById("post_" + idAviso);
           if (postElement) {
             postElement.remove();
           }
 
-          controlarComentarios(); // Atualiza a visibilidade dos botões
+          controlarComentarios(); 
         } else {
           alert("Erro ao deletar o post");
         }
@@ -279,14 +278,10 @@
             btnEditar.className = "publicacao-btn-editar";
             btnDeletar.className = "publicacao-btn-editar";
 
-            // Evento para o botão Editar
             btnEditar.className = "publicacao-btn-editar"
             btnEditar.id = "btnEditar" + publicacao.idAviso;
             btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
 
-
-
-            // Evento para o botão Deletar (aqui é a mudança importante)
             btnDeletar.className = "publicacao-btn-editar"
             btnDeletar.id = "btnDeletar" + publicacao.idAviso;
             btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);

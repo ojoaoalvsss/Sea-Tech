@@ -94,8 +94,6 @@
         }
     ];
 
-    //   var currentQuestion = 0;
-    //   var score = 0;
 
     let perguntaAtual = 0;
     let acertos = 0;
@@ -125,7 +123,7 @@
         for (let i = 0; i < perguntas[perguntaAtual].opcoes.length; i++) {
             const botao = document.createElement("button");
             botao.textContent = perguntas[perguntaAtual].opcoes[i];
-            botao.classList.add("quiz-opcao"); // Adiciona a classe botao-opcao
+            botao.classList.add("quiz-opcao"); 
             botao.addEventListener("click", () =>
                 verificarResposta(perguntas[perguntaAtual].opcoes[i])
             );
@@ -150,9 +148,9 @@
         ]
         perguntaAtual++;
         if (perguntaAtual < perguntas.length) {
-            setTimeout(() => exibirPergunta(), 1000); // Exibe próxima pergunta após 1 segundo
+            setTimeout(() => exibirPergunta(), 1000); 
         } else {
-            setTimeout(() => mostrarResultado(), 1000); // Mostra resultado após 1 segundo
+            setTimeout(() => mostrarResultado(), 1000); 
 
         }
     }
@@ -169,7 +167,6 @@
         elementoResultado.style.display = "block";
         enviarPontuacao(acertos, erros, 1);
 
-        // Redirecionar para a página de ranking após 3 segundos
         setTimeout(() => {
             window.location.href = '../meuperfil.html';
         }, 2000);
